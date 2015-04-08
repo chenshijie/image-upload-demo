@@ -1,0 +1,87 @@
+<html>
+
+<head>
+    <title>image upload</title>
+    <script type="text/javascript" src="/javascripts/jquery-1.11.2.js" />
+    <script type="text/javascript">
+    //var ADD = {
+    
+    //};
+    var abc=10;
+    </script>
+    <style>
+    .upload_item {
+        width: 50px;
+        height: 45px;
+        overflow: hidden;
+        border: 2px dashed #bfbfbf;
+        float: left;
+        margin-right: 10px;
+    }
+    
+    .upload_item_add {
+        width: 50px;
+        height: 45px;
+        display: block;
+        line-height: 42px;
+        text-align: center;
+        font-size: 30px;
+        cursor: pointer;
+    }
+    
+    .upload_input {}
+    </style>
+</head>
+
+<body>
+    <script>var abc=20;
+var upload_click = function(obj) {
+        $(obj).parent().children().eq(1).click();
+    };
+    var upload_change = function(obj) {
+        var path;
+        path = $(obj).val(); //C:\Documents and Settings\hud\桌面\AddFile.jpg
+        var aa;
+        aa = path.split('.');
+        alert(aa[aa.length - 1]); //jpg 结果
+
+        var name;
+        name = path.split('\\');
+        var bb = name[name.length - 1];
+        alert(bb.substr(0,bb.indexOf('.')));  //AddFile 结果
+
+        $(obj).parent().children().eq(0).css('fontSize', '12px');
+        $(obj).parent().css('borderStyle', 'solid');
+        $(obj).parent().children().eq(0).html(bb.substr(0, bb.indexOf('.')));
+        console.log($(obj).parent().children().eq(0));
+        console.log(bb.substr(0, bb.indexOf('.')))
+        if ($(obj).parent().attr('index') == 1) { //新增
+            var html = '<div class="upload_item" index="1"><span class="upload_item_add" onclick="upload_click(this)">+</span><input type="file" name="pics" id="pics" class="upload_input" onchange="upload_change(this)" /></div>';
+            $('#upload_box').append(html);
+            $(obj).parent().attr('index', '0');
+        }
+    };
+    </script>
+    <form method="post" action="/upload" enctype="multipart/form-data">
+        <table>
+            <tr>
+                <td>图片：</td>
+                <td id="upload_box">
+                    <div class="upload_item" index="0" style="display:none;"><span class="upload_item_add" onclick="upload_click(this);">+</span>
+                        <input type="file" name="pics" id="pics" class="upload_input" onchange="upload_change(this)" />
+                    </div>
+                    <div class="upload_item" index="1"><span class="upload_item_add" onclick="upload_click(this);">+</span>
+                        <input type="file" name="pics" id="pics" class="upload_input" onchange="upload_change(this)" />
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" value="提交" />
+                </td>
+            </tr>
+        </table>
+    </form>
+</body>
+
+</html>
